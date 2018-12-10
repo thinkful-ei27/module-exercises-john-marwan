@@ -13,12 +13,12 @@ const store = (function () {
   const searchTerm = '';
 
   const findById = function(id) {
-    return store.items.find(item => item === id);
+    return store.items.find(item => item.id === id);
   };
 
   const addItem = function(name) {
     try {
-      Item.validateName(name);
+      Item.validateName(name); 
       this.items.push(Item.create(name));
     } catch (error) {
       console.log(`Error is ${error.message}`);
