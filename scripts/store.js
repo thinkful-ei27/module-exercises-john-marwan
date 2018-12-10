@@ -43,11 +43,13 @@ const store = (function () {
   };
 
   const findAndToggleChecked = function (id) {
-    let item = this.findById(id);
+    let item = findById(id);
     if (item.checked) {
-      return false;
+      let foundItem = store.items.find(i => i === item)
+      foundItem.checked = false;
     } else {
-      return true;
+      let foundItem = store.items.find(i => i === item)
+      foundItem.checked = true;
     }
   };
 
