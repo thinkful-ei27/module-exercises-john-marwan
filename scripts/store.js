@@ -4,25 +4,25 @@
 const store = (function () {
 
   const items = [{
-      id: cuid(),
-      name: 'apples',
-      checked: false
-    },
-    {
-      id: cuid(),
-      name: 'oranges',
-      checked: false
-    },
-    {
-      id: cuid(),
-      name: 'milk',
-      checked: true
-    },
-    {
-      id: cuid(),
-      name: 'bread',
-      checked: false
-    }
+    id: cuid(),
+    name: 'apples',
+    checked: false
+  },
+  {
+    id: cuid(),
+    name: 'oranges',
+    checked: false
+  },
+  {
+    id: cuid(),
+    name: 'milk',
+    checked: true
+  },
+  {
+    id: cuid(),
+    name: 'bread',
+    checked: false
+  }
   ];
   const hideCheckedItems = false;
   const searchTerm = '';
@@ -45,10 +45,10 @@ const store = (function () {
   const findAndToggleChecked = function (id) {
     let item = findById(id);
     if (item.checked) {
-      let foundItem = store.items.find(i => i === item)
+      let foundItem = store.items.find(i => i === item);
       foundItem.checked = false;
     } else {
-      let foundItem = store.items.find(i => i === item)
+      let foundItem = store.items.find(i => i === item);
       foundItem.checked = true;
     }
   };
@@ -65,8 +65,20 @@ const store = (function () {
 
   const findAndDelete = function (id) {
     const filtered = this.items.filter(item => item !== findById(id));
-    this.items = filtered
+    this.items = filtered;
     
+  };
+
+  const toggleCheckedFilter = function() {
+    if (this.hideCheckedItems === false) {
+      return this.hideCheckedItems = true;
+    } else {
+      return this.hideCheckedItems = false;
+    }
+  };
+
+  const setSearchTerm = function(term) {
+    this.searchTerm = term;
   };
 
   return {
@@ -77,7 +89,9 @@ const store = (function () {
     addItem,
     findAndToggleChecked,
     findAndUpdateName,
-    findAndDelete
+    findAndDelete,
+    toggleCheckedFilter,
+    setSearchTerm
   };
 
 }());
