@@ -1,4 +1,4 @@
-/* global cuid */
+/* global cuid, Item */
 'use strict';
 
 const store = (function () {
@@ -12,10 +12,51 @@ const store = (function () {
   const hideCheckedItems = false;
   const searchTerm = '';
 
+  const findById = function(id) {
+    return store.items.find(item => item === id);
+  };
+
+  const addItem = function(name) {
+    try {
+      Item.validateName(name);
+      this.items.push(Item.create(name));
+    } catch (error) {
+      console.log(`Error is ${error.message}`);
+    }
+  };
+
+  const findAndToggleChecked = function(id) {
+    let item = this.findById(id);
+    if (item.checked) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const findAndUpdateName = function(id, newName) {
+    try {
+      Item.validateName(newName);
+      let itemObj = items.findById(id);
+      itemObj.name === newName;
+    } catch (error) {
+      console.log(`Cannot update name: ${error.message}`);
+    }
+  };
+
+  const findAndDelete = function(id) {
+    return this.items.filter(item => item === findById(id));
+  };
+
   return {
     items,
     hideCheckedItems,
-    searchTerm
+    searchTerm,
+    findById,
+    addItem,
+    findAndToggleChecked,
+    findAndUpdateName,
+    findAndDelete
   };
 
 }() );
