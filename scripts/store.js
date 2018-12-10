@@ -3,29 +3,46 @@
 
 const store = (function () {
 
-  const items = [
-    { id: cuid(), name: 'apples', checked: false },
-    { id: cuid(), name: 'oranges', checked: false },
-    { id: cuid(), name: 'milk', checked: true },
-    { id: cuid(), name: 'bread', checked: false }
+  const items = [{
+      id: cuid(),
+      name: 'apples',
+      checked: false
+    },
+    {
+      id: cuid(),
+      name: 'oranges',
+      checked: false
+    },
+    {
+      id: cuid(),
+      name: 'milk',
+      checked: true
+    },
+    {
+      id: cuid(),
+      name: 'bread',
+      checked: false
+    }
   ];
   const hideCheckedItems = false;
   const searchTerm = '';
 
-  const findById = function(id) {
+  const findById = function (id) {
     return store.items.find(item => item.id === id);
   };
 
-  const addItem = function(name) {
+  // store.items[0]. store.findAndDelete.shoppingList.render()
+
+  const addItem = function (name) {
     try {
-      Item.validateName(name); 
+      Item.validateName(name);
       this.items.push(Item.create(name));
     } catch (error) {
       console.log(`Error is ${error.message}`);
     }
   };
 
-  const findAndToggleChecked = function(id) {
+  const findAndToggleChecked = function (id) {
     let item = this.findById(id);
     if (item.checked) {
       return false;
@@ -34,7 +51,7 @@ const store = (function () {
     }
   };
 
-  const findAndUpdateName = function(id, newName) {
+  const findAndUpdateName = function (id, newName) {
     try {
       Item.validateName(newName);
       let itemObj = items.findById(id);
@@ -44,8 +61,10 @@ const store = (function () {
     }
   };
 
-  const findAndDelete = function(id) {
-    return this.items.filter(item => item === findById(id));
+  const findAndDelete = function (id) {
+    const filtered = this.items.filter(item => item !== findById(id));
+    this.items = filtered
+    
   };
 
   return {
@@ -59,4 +78,4 @@ const store = (function () {
     findAndDelete
   };
 
-}() );
+}());
